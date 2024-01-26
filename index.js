@@ -16,7 +16,8 @@ app.get("/fetch-detail", async (req, res) => {
     const params = req.query.name;
     if (params?.length) {
       const response = await openaiConf.chat.completions.create({
-        model: "gpt-3.5-turbo",
+        // model: "gpt-3.5-turbo",
+        model: "gpt-3.5-turbo-1106",
         messages: [
           {
             role: "user",
@@ -27,8 +28,9 @@ app.get("/fetch-detail", async (req, res) => {
         max_tokens: 500,
       });
 
-      console.log(response);
-      res.status(200).json(JSON.parse(response.choices[0].message.content));
+      console.log(response.choices[0].message.content);
+      res.status(200).json(response.choices[0].message.content);
+      //   res.status(200).json(response);
     } else {
       res.status(500).json({ error: "Please Provide name" });
     }
